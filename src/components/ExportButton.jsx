@@ -1,26 +1,19 @@
-import { utils, writeFile } from 'xlsx';
-import { DocumentArrowDownIcon } from '@heroicons/react/24/outline';
+import React from 'react';
+import * as XLSX from 'xlsx';
 
-export default function ExportButton({ expenses }) {
-  const handleExport = () => {
-    const ws = utils.json_to_sheet(expenses.map(exp => ({
-      Amount: exp.amount,
-      Description: exp.description,
-      Category: exp.tag,
-      Date: exp.date
-    })));
-    const wb = utils.book_new();
-    utils.book_append_sheet(wb, ws, "Expenses");
-    writeFile(wb, "expenses.xlsx");
+function ExportButton({ expenses }) {
+  const exportToExcel = () => {
+    const ws = XLSX.utils.json_to_sheet(expenses);
+    const wb = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(wb, ws, 'Expenses');
+    XLSX.writeFile(wb, 'expenses.xlsx');
   };
 
   return (
-    <button 
-      onClick={handleExport}
-      className="retro-button fixed bottom-4 right-4"
-    >
-      <DocumentArrowDownIcon className="h-5 w-5 inline-block mr-2" />
+    <button onClick={exportToExcel} className="export-button">
       Export to Excel
     </button>
   );
 }
+
+export default ExportButton;

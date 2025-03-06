@@ -1,34 +1,26 @@
+import React from 'react';
 import { PieChart, Pie, Cell, ResponsiveContainer } from 'recharts';
 
-export default function Chart({ expenses }) {
-  const data = expenses.reduce((acc, exp) => {
-    const existing = acc.find(item => item.name === exp.tag);
-    if (existing) {
-      existing.value += exp.amount;
-    } else {
-      acc.push({ name: exp.tag, value: exp.amount });
-    }
-    return acc;
-  }, []);
-
-  const COLORS = ['#ff6f61', '#6b5b95', '#88b04b', '#ffa500'];
+function Chart({ expenses }) {
+  const data = expenses.map(exp => ({
+    name: exp.category,
+    value: parseInt(exp.amount),
+  }));
 
   return (
-    <div className="retro-chart">
-      <h2 className="text-2xl mb-4" style={{ color: '#ff6f61' }}>Expense Chart</h2>
+    <div className="chart-container">
+      <h2>Expense Chart</h2>
       <ResponsiveContainer width="100%" height={300}>
         <PieChart>
           <Pie
             data={data}
             dataKey="value"
             nameKey="name"
-            cx="50%"
-            cy="50%"
-            outerRadius={80}
-            label
+            outerRadius={150}
+            fill="#8884d8"
           >
             {data.map((entry, index) => (
-              <Cell key={index} fill={COLORS[index % COLORS.length]} />
+              <Cell key={`cell-${index}`} fill={index % 2 === 0 ? "#ff6f61" : "#00C49F"} />
             ))}
           </Pie>
         </PieChart>
@@ -36,3 +28,5 @@ export default function Chart({ expenses }) {
     </div>
   );
 }
+
+export default Chart;

@@ -79,3 +79,8 @@ form {
   gap: 300px;  /* Added gap between each form element */
   margin-bottom: 40px;
 }
+
+.form-container {
+  width: 50%;
+  margin-bottom: 2rem;
+}
