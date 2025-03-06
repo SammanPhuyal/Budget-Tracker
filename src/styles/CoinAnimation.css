@@ -1,0 +1,55 @@
+.coin-animation-container {
+    position: absolute;
+    right: 20%;  /* Align with piggy bank */
+    top: 50%;  
+    transform: translateY(-30%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 400px;  
+    height: 400px;
+}
+
+/* Piggy Bank */
+.piggy-bank {
+    width: 450px; 
+    height: auto;
+    position: absolute;
+    right: 0;  /* Keep it fixed */
+    bottom: 0; 
+    transform: translateX(50%);
+}
+
+/* Coin */
+.coin {
+    width: 6%;  
+    height: auto;
+    font-size: 40px;
+    position: absolute;
+    left: 90%;  /* Coins start centered */
+    top: -50px;  /* Start above */
+    transform: translateX(-50%);
+    animation: dropCoin 3s linear forwards;
+}
+
+/* Coin Drop Animation */
+@keyframes dropCoin {
+    0% {
+        transform: translate(-50%, -150px) rotate(0deg);
+        opacity: 1;
+    }
+    30% {
+        transform: translate(-45%, 30px) rotate(30deg); /* Gentle curve */
+    }
+    60% {
+        transform: translate(-55%, 80px) rotate(60deg); /* More curve */
+    }
+    90% {
+        transform: translate(-50%, 110px) rotate(30deg) scale(1.1); /* Tiny bounce */
+    }
+    100% {
+        transform: translate(-50%, 120px) rotate(0deg) scale(1); /* Stops at piggy slot */
+        opacity: 0;
+    }
+}
